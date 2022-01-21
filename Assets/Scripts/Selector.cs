@@ -68,7 +68,7 @@ public class Selector : GameSingleton<Selector>
             if ((isDragPlacing || isMouseDown) && !EventSystem.current.IsPointerOverGameObject())
             {
                 MachineComponent machineComponent = m_Machine.GetComponent<MachineComponent>();
-                if (machineComponent.CanBePlaced())
+                if (machineComponent.CanBePlaced(m_TargetPosition))
                 {
                     PlaceMachine();
                     InstantiateMachine();
@@ -129,7 +129,6 @@ public class Selector : GameSingleton<Selector>
         {
             Material material = meshRenderer.material;
             material.color = new Color(material.color.r, material.color.g, material.color.b, 0.5f);
-            Debug.Log(meshRenderer.material.color);
         }
 
         m_Machine.transform.position = m_TargetPosition;

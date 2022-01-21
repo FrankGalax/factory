@@ -7,12 +7,12 @@ public class MachineComponent : MonoBehaviour
     public LayerMask RequirementPlacementMask;
     public LayerMask ExclusionPlacementMask;
 
-    public bool CanBePlaced()
+    public bool CanBePlaced(Vector3 position)
     {
         if (RequirementPlacementMask.value != 0)
         {
             RaycastHit hit;
-            Ray ray = new Ray(transform.position + 2.0f * Vector3.up, Vector3.down);
+            Ray ray = new Ray(position + 2.0f * Vector3.up, Vector3.down);
 
             if (!Physics.Raycast(ray, out hit, 2, RequirementPlacementMask))
             {
@@ -22,7 +22,7 @@ public class MachineComponent : MonoBehaviour
 
         if (ExclusionPlacementMask.value != 0)
         {
-            Ray ray = new Ray(transform.position + 2.0f * Vector3.up, Vector3.down);
+            Ray ray = new Ray(position + 2.0f * Vector3.up, Vector3.down);
 
             RaycastHit[] hits = Physics.RaycastAll(ray, 2, ExclusionPlacementMask);
             foreach (RaycastHit hit in hits)
