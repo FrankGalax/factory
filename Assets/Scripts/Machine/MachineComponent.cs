@@ -6,6 +6,15 @@ public class MachineComponent : MonoBehaviour
 {
     public LayerMask RequirementPlacementMask;
     public LayerMask ExclusionPlacementMask;
+    public GameObject OnClickedUI;
+
+    private GameObject m_OnClickedUI;
+    private Transform m_UIParent;
+
+    private void Start()
+    {
+        m_UIParent = UI.Instance.transform.Find("MachineUIs");
+    }
 
     public bool CanBePlaced(Vector3 position)
     {
@@ -35,5 +44,13 @@ public class MachineComponent : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void OnClicked()
+    {
+        if (OnClickedUI != null && m_OnClickedUI == null)
+        {
+            m_OnClickedUI = Instantiate(OnClickedUI, m_UIParent.transform);
+        }
     }
 }

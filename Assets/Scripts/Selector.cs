@@ -11,11 +11,11 @@ public class Selector : GameSingleton<Selector>
 
     private GameObject m_SelectedMachine;
 
-    public GameObject Machine
+    public GameObject SelectedMachine
     {
         get
         {
-            return m_Machine;
+            return m_SelectedMachine;
         }
         set
         {
@@ -82,18 +82,42 @@ public class Selector : GameSingleton<Selector>
                 m_IsHolding = false;
             }
         }
+        else
+        {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 20, 1 << LayerMask.NameToLayer("Machine")))
+                {
+                    MachineComponent machineComponent = hit.collider.GetComponent<MachineComponent>();
+                    if (machineComponent != null)
+                    {
+                        machineComponent.OnClicked();
+                    }
+                }
+            }
+        }
 
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit[] hits = Physics.RaycastAll(ray, 20, 1 << LayerMask.NameToLayer("Machine"));
+            bool destroyedOne = false;
             foreach (RaycastHit hit in hits)
             {
                 if (hit.collider.gameObject != m_Machine)
                 {
                     GameObject.Destroy(hit.collider.gameObject);
+                    destroyedOne = true;
+                    break;
                 }
+            }
+
+            if (!destroyedOne)
+            {
+                SelectedMachine = null;
             }
         }
     }
@@ -118,6 +142,12 @@ public class Selector : GameSingleton<Selector>
         {
             Material material = meshRenderer.material;
             material.color = new Color(material.color.r, material.color.g, material.color.b, 1.0f);
+        }
+
+        IDeploy[] iDeploys = m_Machine.GetComponents<IDeploy>();
+        foreach (IDeploy iDeploy in iDeploys)
+        {
+            iDeploy.OnDeploy();
         }
     }
 

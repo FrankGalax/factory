@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI : MonoBehaviour
+public class UI : GameSingleton<UI>
 {
     public void SelectMiner()
     {
-        Selector.Instance.Machine = Config.Instance.Miner;
+        Selector.Instance.SelectedMachine = Config.Instance.Miner;
     }
 
     public void SelectBelt()
     {
-        Selector.Instance.Machine = Config.Instance.Belt;
+        Selector.Instance.SelectedMachine = Config.Instance.Belt;
     }
 }
