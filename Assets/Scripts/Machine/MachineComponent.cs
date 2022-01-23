@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MachineComponent : MonoBehaviour
 {
-    public LayerMask RequirementPlacementMask;
-    public LayerMask ExclusionPlacementMask;
-    public GameObject OnClickedUI;
+    [SerializeField] private LayerMask RequirementPlacementMask;
+    [SerializeField] private LayerMask ExclusionPlacementMask;
+    [SerializeField] private GameObject OnClickedUI;
 
     private GameObject m_OnClickedUI;
     private Transform m_UIParent;
@@ -51,6 +51,19 @@ public class MachineComponent : MonoBehaviour
         if (OnClickedUI != null && m_OnClickedUI == null)
         {
             m_OnClickedUI = Instantiate(OnClickedUI, m_UIParent.transform);
+
+            InventoryComponent inventoryComponent = GetComponent<InventoryComponent>();
+            InventorySlotUI[] inventorySlotUIs = m_OnClickedUI.GetComponentsInChildren<InventorySlotUI>();
+            foreach (InventorySlotUI inventorySlotUI in inventorySlotUIs)
+            {
+                inventorySlotUI.InitFromInventory(inventoryComponent);
+            }
+
+            ProgressBarUI progressBarUI = m_OnClickedUI.GetComponentInChildren<ProgressBarUI>();
+            if (progressBarUI != null)
+            {
+                progressBarUI.SetProgressBar(GetComponent<IProgressBar>());
+            }
         }
     }
 }

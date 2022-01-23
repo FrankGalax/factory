@@ -13,4 +13,9 @@ public class UI : GameSingleton<UI>
     {
         Selector.Instance.SelectedMachine = Config.Instance.Belt;
     }
+
+    public void SelectInserter()
+    {
+        Selector.Instance.SelectedMachine = Config.Instance.Inserter;
+    }
 }

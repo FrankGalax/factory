@@ -2,5 +2,7 @@
 
 public class ResourceComponent : MonoBehaviour
 {
-    public Item Item;
+    [SerializeField] private Item Item;
+
+    public Item GetItem() { return Item; }
 }

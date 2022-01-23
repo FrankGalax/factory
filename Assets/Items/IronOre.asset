@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f793bd2d45b8fb945b3574c9080f6a15, type: 3}
   m_Name: IronOre
   m_EditorClassIdentifier: 
+  Name: Iron Ore
+  Icon: {fileID: 8020143640844766479, guid: 089eb60f6d6f4f34e895c7504b545f87, type: 3}
+  WorldItem: {fileID: 2633590891938433985, guid: 5eb00d2ea8182994d95cd57480abc854, type: 3}

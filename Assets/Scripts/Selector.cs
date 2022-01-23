@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 
 public class Selector : GameSingleton<Selector>
 {
-    public float LerpSpeed = 10;
-    public float RotationLerpSpeed = 12;
-    public GameObject MachinesParent;
+    [SerializeField] private float LerpSpeed = 10;
+    [SerializeField] private float RotationLerpSpeed = 12;
+    [SerializeField] private GameObject MachinesParent;
 
     private GameObject m_SelectedMachine;
 
@@ -70,7 +70,7 @@ public class Selector : GameSingleton<Selector>
                 MachineComponent machineComponent = m_Machine.GetComponent<MachineComponent>();
                 if (machineComponent.CanBePlaced(m_TargetPosition))
                 {
-                    PlaceMachine();
+                    DeployMachine();
                     InstantiateMachine();
                 }
 
@@ -133,7 +133,7 @@ public class Selector : GameSingleton<Selector>
         }
     }
 
-    private void PlaceMachine()
+    private void DeployMachine()
     {
         m_Machine.transform.position = m_TargetPosition;
         m_Machine.transform.rotation = m_TargetRotation;
@@ -148,6 +148,20 @@ public class Selector : GameSingleton<Selector>
         foreach (IDeploy iDeploy in iDeploys)
         {
             iDeploy.OnDeploy();
+        }
+
+        Collider[] colliders = Physics.OverlapSphere(m_TargetPosition, 2.0f, 1 << LayerMask.NameToLayer("Machine"));
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == m_Machine)
+            {
+                continue;
+            }
+
+            foreach (IDeploy iDeploy in collider.GetComponentsInChildren<IDeploy>())
+            {
+                iDeploy.OnCloseMachineDeployed();
+            }
         }
     }
 

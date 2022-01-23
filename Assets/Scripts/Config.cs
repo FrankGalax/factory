@@ -6,4 +6,5 @@ public class Config : GameSingleton<Config>
 {
     public GameObject Miner;
     public GameObject Belt;
+    public GameObject Inserter;
 }

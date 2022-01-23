@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class MinerComponent : MonoBehaviour, IDeploy
+public class MinerComponent : MonoBehaviour, IDeploy, IProgressBar
 {
-    public float MineTime = 3.0f;
+    [SerializeField] private float MineTime = 3.0f;
 
     private InventoryComponent m_InventoryComponent;
     private ResourceComponent m_ResourceComponent;
@@ -22,7 +22,7 @@ public class MinerComponent : MonoBehaviour, IDeploy
             {
                 m_MineTimer = MineTime;
 
-                m_InventoryComponent.AddItem(0, m_ResourceComponent.Item);
+                m_InventoryComponent.AddItem(0, m_ResourceComponent.GetItem());
             }
         }
     }
@@ -37,5 +37,12 @@ public class MinerComponent : MonoBehaviour, IDeploy
             m_ResourceComponent = hit.collider.GetComponent<ResourceComponent>();
             m_MineTimer = MineTime;
         }
+    }
+
+    public void OnCloseMachineDeployed() { }
+
+    public float GetProgressRatio()
+    {
+        return 1.0f - m_MineTimer / MineTime;
     }
 }

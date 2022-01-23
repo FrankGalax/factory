@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 3460958661139359729}
   - component: {fileID: -1632784077326368645}
   - component: {fileID: 6418855796020494676}
+  - component: {fileID: 2239364932854475922}
   m_Layer: 8
   m_Name: Belt
   m_TagString: Untagged
@@ -300,6 +301,7 @@ MonoBehaviour:
   ExclusionPlacementMask:
     serializedVersion: 2
     m_Bits: 384
+  OnClickedUI: {fileID: 0}
 --- !u!65 &6418855796020494676
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -311,8 +313,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 0.05, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &2239364932854475922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4891556337410935164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f4896a22a14e84da8c062ca991796b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7661373726108132752
 GameObject:
   m_ObjectHideFlags: 0

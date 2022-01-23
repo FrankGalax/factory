@@ -5,18 +5,13 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 [Serializable]
-public enum InventoryIO
-{
-    Input,
-    Output
-}
-
-[Serializable]
 public class InventorySlot
 {
-    public InventoryIO InventoryIO = InventoryIO.Input;
-    public Item Item = null;
-    public int Quantity = 0;
+    [SerializeField] private Item Item = null;
+    [SerializeField] private int Quantity = 0;
+
+    public delegate void InventorySlotChanged();
+    public event InventorySlotChanged OnInventorySlotChanged;
 
     public void AddItem(Item item)
     {
@@ -28,15 +23,71 @@ public class InventorySlot
         }
 
         Quantity++;
+
+        if (OnInventorySlotChanged != null)
+        {
+            OnInventorySlotChanged();
+        }
+    }
+
+    public Item GetItem() { return Item; }
+
+    public int GetQuantity() { return Quantity; }
+
+    public void DecreaseQuantity(int amount)
+    {
+        Quantity -= amount;
+        if (Quantity < 0)
+        {
+            Quantity = 0;
+        }
+
+        if (OnInventorySlotChanged != null)
+        {
+            OnInventorySlotChanged();
+        }
     }
 }
 
-public class InventoryComponent : MonoBehaviour
+public class InventoryComponent : MonoBehaviour, IInventory
 {
-    public List<InventorySlot> InventorySlots;
+    [SerializeField] private List<InventorySlot> InventorySlots;
 
     public void AddItem(int slotIndex, Item item)
     {
         InventorySlots[slotIndex].AddItem(item);
+    }
+
+    public InventorySlot GetSlot(int index)
+    {
+        return InventorySlots[index];
+    }
+
+    public Item GetItem(int index)
+    {
+        return InventorySlots[index].GetItem();
+    }
+
+    public int GetQuantity(int index)
+    {
+        return InventorySlots[index].GetQuantity();
+    }
+
+    public void DecreaseQuantity(int index, int amount)
+    {
+        InventorySlots[index].DecreaseQuantity(amount);
+    }
+
+    public int GetAvailableSlotIndex()
+    {
+        for (int i = 0; i < InventorySlots.Count; ++i)
+        {
+            if (InventorySlots[i].GetItem() == null)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraComponent : MonoBehaviour
 {
-    public float Acceleration = 1;
-    public float Deceleration = 1;
-    public float MaxSpeed = 5;
+    [SerializeField] private float Acceleration = 1;
+    [SerializeField] private float Deceleration = 1;
+    [SerializeField] private float MaxSpeed = 5;
 
     private Vector2 m_CurrentSpeed;
 
