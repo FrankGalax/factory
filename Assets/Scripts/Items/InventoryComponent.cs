@@ -53,9 +53,9 @@ public class InventoryComponent : MonoBehaviour, IInventory
 {
     [SerializeField] private List<InventorySlot> InventorySlots;
 
-    public void AddItem(int slotIndex, Item item)
+    public void AddItem(int index, Item item)
     {
-        InventorySlots[slotIndex].AddItem(item);
+        InventorySlots[index].AddItem(item);
     }
 
     public InventorySlot GetSlot(int index)

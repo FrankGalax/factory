@@ -59,6 +59,8 @@ public class InserterComponent : MonoBehaviour, IDeploy
         OnDeployedInternal();
     }
 
+    public void OnUnDeploy() { }
+
     public void OnCloseMachineDeployed()
     {
         OnDeployedInternal();
@@ -148,6 +150,7 @@ public class InserterComponent : MonoBehaviour, IDeploy
         if (m_DropSlot != -1)
         {
             Destroy(m_WorldItem);
+            m_OutputInventory.AddItem(m_DropSlot, m_Item);
 
             m_RotateTimer = RotateTime;
             m_State = State.RotateBack;

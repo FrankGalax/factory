@@ -39,6 +39,8 @@ public class MinerComponent : MonoBehaviour, IDeploy, IProgressBar
         }
     }
 
+    public void OnUnDeploy() { }
+
     public void OnCloseMachineDeployed() { }
 
     public float GetProgressRatio()

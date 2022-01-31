@@ -109,9 +109,13 @@ public class Selector : GameSingleton<Selector>
             {
                 if (hit.collider.gameObject != m_Machine)
                 {
-                    GameObject.Destroy(hit.collider.gameObject);
-                    destroyedOne = true;
-                    break;
+                    MachineComponent machineComponent = hit.collider.GetComponent<MachineComponent>();
+                    if (machineComponent != null)
+                    {
+                        UnDeployMachine(machineComponent);
+                        destroyedOne = true;
+                        break;
+                    }
                 }
             }
 
@@ -165,6 +169,16 @@ public class Selector : GameSingleton<Selector>
         }
     }
 
+    private void UnDeployMachine(MachineComponent machineComponent)
+    {
+        foreach (IDeploy iDeploy in machineComponent.GetComponents<IDeploy>())
+        {
+            iDeploy.OnUnDeploy();
+        }
+
+        GameObject.Destroy(machineComponent.gameObject);
+    }
+
     private void InstantiateMachine()
     {
         m_Machine = Instantiate(m_SelectedMachine);
@@ -177,5 +191,14 @@ public class Selector : GameSingleton<Selector>
 
         m_Machine.transform.position = m_TargetPosition;
         m_Machine.transform.rotation = m_TargetRotation;
+    }
+
+    public void DeployMachine_CHEAT(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        m_TargetPosition = position;
+        m_TargetRotation = rotation;
+        m_Machine = Instantiate(prefab);
+        DeployMachine();
+        m_Machine = null;
     }
 }
