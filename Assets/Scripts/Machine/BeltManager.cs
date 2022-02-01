@@ -62,16 +62,19 @@ public class BeltLine
         }
 
         item.transform.position = position;
+        item.transform.localRotation = Quaternion.identity;
+
         m_Items.Add(item);
     }
 
     public GameObject GetItem(Vector3 position)
     {
-        float z = LastBelt.InverseTransformPoint(position).z;
+        Matrix4x4 invLastBeltMatrix = LastBelt.worldToLocalMatrix;
+        float z = invLastBeltMatrix.MultiplyPoint(position).z;
 
         foreach (GameObject item in m_Items)
         {
-            float localZ = item.transform.localPosition.z;
+            float localZ = invLastBeltMatrix.MultiplyPoint(item.transform.position).z + 0.001f;
 
             if (localZ >= z && localZ < z + m_ItemWidth)
             {
