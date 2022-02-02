@@ -67,6 +67,37 @@ public class BeltLine
         m_Items.Add(item);
     }
 
+    public void RemoveItem(Vector3 position)
+    {
+        Matrix4x4 invLastBeltMatrix = LastBelt.worldToLocalMatrix;
+        float z = invLastBeltMatrix.MultiplyPoint(position).z;
+
+        for (int i = 0; i < m_Items.Count; ++i)
+        {
+            GameObject item = m_Items[i];
+            float localZ = invLastBeltMatrix.MultiplyPoint(item.transform.position).z + 0.001f;
+
+            if (localZ >= z && localZ < z + m_ItemWidth)
+            {
+                m_Items.Remove(item);
+                GameObject.Destroy(item);
+
+                if (i <= m_MovingIndex)
+                {
+                    if (i < m_Items.Count)
+                    {
+                        SetMovingIndex(i);
+                    }
+                    else if (m_MovingIndex == m_Items.Count && m_MovingIndex > 0)
+                    {
+                        SetMovingIndex(m_MovingIndex - 1);
+                    }
+                }
+                return;
+            }
+        }
+    }
+
     public GameObject GetItem(Vector3 position)
     {
         Matrix4x4 invLastBeltMatrix = LastBelt.worldToLocalMatrix;
@@ -198,6 +229,14 @@ public class BeltManager : GameSingleton<BeltManager>
         Assert.IsNotNull(beltLine);
 
         return beltLine.GetItem(position);
+    }
+
+    public void RemoveItem(BeltComponent beltComponent, Vector3 position)
+    {
+        BeltLine beltLine = GetBeltLine(beltComponent);
+        Assert.IsNotNull(beltLine);
+
+        beltLine.RemoveItem(position);
     }
 
     private BeltLine GetBeltLine(BeltComponent beltComponent)

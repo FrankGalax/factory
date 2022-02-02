@@ -18,4 +18,9 @@ public class UI : GameSingleton<UI>
     {
         Selector.Instance.SelectedMachine = Config.Instance.Inserter;
     }
+
+    public void SelectChest()
+    {
+        Selector.Instance.SelectedMachine = Config.Instance.Chest;
+    }
 }

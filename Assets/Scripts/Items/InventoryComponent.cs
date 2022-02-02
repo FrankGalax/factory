@@ -78,11 +78,12 @@ public class InventoryComponent : MonoBehaviour, IInventory
         InventorySlots[index].DecreaseQuantity(amount);
     }
 
-    public int GetAvailableSlotIndex()
+    public int GetAvailableSlotIndex(Item item)
     {
         for (int i = 0; i < InventorySlots.Count; ++i)
         {
-            if (InventorySlots[i].GetItem() == null)
+            InventorySlot slot = InventorySlots[i];
+            if (slot.GetItem() == null || slot.GetItem() == item)
             {
                 return i;
             }

@@ -12,20 +12,32 @@ public class BeltComponent : MonoBehaviour, IInventory, IDeploy
 
     public void DecreaseQuantity(int index, int amount)
     {
-        throw new System.NotImplementedException();
+        BeltManager.Instance.RemoveItem(this, transform.position);
     }
 
     public Item GetItem(int index)
     {
-        throw new System.NotImplementedException();
+        GameObject worldItem = BeltManager.Instance.GetItem(this, transform.position);
+        
+        if (worldItem != null)
+        {
+            ResourceComponent resourceComponent = worldItem.GetComponent<ResourceComponent>();
+            if (resourceComponent != null)
+            {
+                return resourceComponent.GetItem();
+            }
+        }
+
+        return null;
     }
 
     public int GetQuantity(int index)
     {
-        throw new System.NotImplementedException();
+        GameObject worldItem = BeltManager.Instance.GetItem(this, transform.position);
+        return worldItem != null ? 1 : 0;
     }
 
-    public int GetAvailableSlotIndex()
+    public int GetAvailableSlotIndex(Item item)
     {
         if (BeltManager.Instance.GetItem(this, transform.position))
         {

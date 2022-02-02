@@ -146,7 +146,7 @@ public class InserterComponent : MonoBehaviour, IDeploy
 
     private void WaitingForDrop()
     {
-        m_DropSlot = m_OutputInventory.GetAvailableSlotIndex();
+        m_DropSlot = m_OutputInventory.GetAvailableSlotIndex(m_Item);
         if (m_DropSlot != -1)
         {
             Destroy(m_WorldItem);
