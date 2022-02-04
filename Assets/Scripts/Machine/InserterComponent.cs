@@ -14,6 +14,7 @@ public class InserterComponent : MonoBehaviour, IDeploy
     private Item m_Item;
     private GameObject m_WorldItem;
     private int m_DropSlot;
+    private int m_PickupSlot;
 
     private enum State
     {
@@ -114,16 +115,21 @@ public class InserterComponent : MonoBehaviour, IDeploy
 
     private void WaitingForPickup()
     {
-        m_Item = m_InputInventory.GetItem(0);
-        if (m_Item != null && m_InputInventory.GetQuantity(0) > 0)
+        Item item = null;
+        m_PickupSlot = m_InputInventory.GetAvailableSlotIndex(item, SlotIO.Output);
+        if (m_PickupSlot != -1)
         {
-            m_WorldItem = Instantiate(m_Item.WorldItem, m_Arm);
-            m_WorldItem.transform.localPosition = new Vector3(0.0f, 0.0f, -0.5f);
+            m_Item = m_InputInventory.GetItem(m_PickupSlot);
+            if (m_Item != null && m_InputInventory.GetQuantity(m_PickupSlot) > 0)
+            {
+                m_WorldItem = Instantiate(m_Item.WorldItem, m_Arm);
+                m_WorldItem.transform.localPosition = new Vector3(0.0f, 0.0f, -0.5f);
 
-            m_InputInventory.DecreaseQuantity(0, 1);
-            m_RotateTimer = RotateTime;
+                m_InputInventory.DecreaseQuantity(m_PickupSlot, 1);
+                m_RotateTimer = RotateTime;
 
-            m_State = State.Rotate;
+                m_State = State.Rotate;
+            }
         }
     }
 
@@ -146,7 +152,7 @@ public class InserterComponent : MonoBehaviour, IDeploy
 
     private void WaitingForDrop()
     {
-        m_DropSlot = m_OutputInventory.GetAvailableSlotIndex(m_Item);
+        m_DropSlot = m_OutputInventory.GetAvailableSlotIndex(m_Item, SlotIO.Input);
         if (m_DropSlot != -1)
         {
             Destroy(m_WorldItem);

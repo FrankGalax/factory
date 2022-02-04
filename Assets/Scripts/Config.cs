@@ -8,4 +8,6 @@ public class Config : GameSingleton<Config>
     public GameObject Belt;
     public GameObject Inserter;
     public GameObject Chest;
+    public GameObject Furnace;
+    public GameObject Crafter;
 }

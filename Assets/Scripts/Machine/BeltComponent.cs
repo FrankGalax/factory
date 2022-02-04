@@ -37,14 +37,16 @@ public class BeltComponent : MonoBehaviour, IInventory, IDeploy
         return worldItem != null ? 1 : 0;
     }
 
-    public int GetAvailableSlotIndex(Item item)
+    public int GetAvailableSlotIndex(Item item, SlotIO slotIO)
     {
-        if (BeltManager.Instance.GetItem(this, transform.position))
+        bool hasItem = BeltManager.Instance.GetItem(this, transform.position) != null;
+        
+        if ((slotIO == SlotIO.Input && !hasItem) || (slotIO == SlotIO.Output && hasItem))
         {
-            return -1;
+            return 0;
         }
 
-        return 0;
+        return -1;
     }
 
     public void OnDeploy()

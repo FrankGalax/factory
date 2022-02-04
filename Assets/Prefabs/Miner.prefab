@@ -245,9 +245,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InventorySlots:
-  - InventoryIO: 1
-    Item: {fileID: 0}
+  - Item: {fileID: 0}
     Quantity: 0
+    SlotIO: 2
 --- !u!114 &7148086965802674170
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,4 +23,14 @@ public class UI : GameSingleton<UI>
     {
         Selector.Instance.SelectedMachine = Config.Instance.Chest;
     }
+
+    public void SelectFurnace()
+    {
+        Selector.Instance.SelectedMachine = Config.Instance.Furnace;
+    }
+
+    public void SelectCrafter()
+    {
+        Selector.Instance.SelectedMachine = Config.Instance.Crafter;
+    }
 }

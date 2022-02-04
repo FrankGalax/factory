@@ -4,5 +4,5 @@
     public abstract Item GetItem(int index);
     public abstract int GetQuantity(int index);
     public abstract void DecreaseQuantity(int index, int amount);
-    public abstract int GetAvailableSlotIndex(Item item);
+    public abstract int GetAvailableSlotIndex(Item item, SlotIO slotIO);
 }
