@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BeltComponent : MonoBehaviour, IInventory, IDeploy
 {
-    public void AddItem(int index, Item item)
+    public void AddItem(int index, Item item, int amount)
     {
         GameObject worldItem = Instantiate(item.WorldItem);
         BeltManager.Instance.AddItem(worldItem, transform.position, this);
     }
 
-    public void DecreaseQuantity(int index, int amount)
+    public void RemoveItem(int index, int amount)
     {
         BeltManager.Instance.RemoveItem(this, transform.position);
     }

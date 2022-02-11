@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: IronIngot
   m_EditorClassIdentifier: 
   Name: Iron Ingot
-  Icon: {fileID: 0}
-  WorldItem: {fileID: 0}
+  Icon: {fileID: -6251682230944352461, guid: 089eb60f6d6f4f34e895c7504b545f87, type: 3}
+  WorldItem: {fileID: 4620159813998907220, guid: 549e9c7cceb142f49be2829fb1fa4454, type: 3}

@@ -26,6 +26,26 @@ public class DebugBuilder : MonoBehaviour
         AddDebugDeploy(Config.Instance.Inserter, new Vector3(3, 0, 1), Quaternion.Euler(0, 180, 0));
     }
 
+    public void Test2()
+    {
+        AddDebugDeploy(Config.Instance.Miner, Vector3.zero, Quaternion.identity);
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(0, 0, 2), Quaternion.Euler(0, 90, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(1, 0, 2), Quaternion.Euler(0, 90, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(2, 0, 2), Quaternion.Euler(0, 90, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(3, 0, 2), Quaternion.Euler(0, 90, 0));
+        AddDebugDeploy(Config.Instance.Furnace, new Vector3(3, 0, 0), Quaternion.Euler(0, 0, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(3, 0, -2), Quaternion.Euler(0, 270, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(2, 0, -2), Quaternion.Euler(0, 270, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(1, 0, -2), Quaternion.Euler(0, 270, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(0, 0, -2), Quaternion.Euler(0, 270, 0));
+        AddDebugDeploy(Config.Instance.Belt, new Vector3(-1, 0, -2), Quaternion.Euler(0, 270, 0));
+        AddDebugDeploy(Config.Instance.Chest, new Vector3(-3, 0, -2), Quaternion.Euler(0, 0, 0));
+        AddDebugDeploy(Config.Instance.Inserter, new Vector3(0, 0, 1), Quaternion.identity);
+        AddDebugDeploy(Config.Instance.Inserter, new Vector3(3, 0, 1), Quaternion.Euler(0, 180, 0));
+        AddDebugDeploy(Config.Instance.Inserter, new Vector3(3, 0, -1), Quaternion.Euler(0, 180, 0));
+        AddDebugDeploy(Config.Instance.Inserter, new Vector3(-2, 0, -2), Quaternion.Euler(0, 270, 0));
+    }
+
     private void Update()
     {
         if (m_FrameSkip > 0)

@@ -22,7 +22,7 @@ public class MinerComponent : MonoBehaviour, IDeploy, IProgressBar
             {
                 m_MineTimer = MineTime;
 
-                m_InventoryComponent.AddItem(0, m_ResourceComponent.GetItem());
+                m_InventoryComponent.AddItem(0, m_ResourceComponent.GetItem(), 1);
             }
         }
     }

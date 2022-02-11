@@ -21,7 +21,7 @@ public class InventorySlot
     public delegate void InventorySlotChanged();
     public event InventorySlotChanged OnInventorySlotChanged;
 
-    public void AddItem(Item item)
+    public void AddItem(Item item, int amount)
     {
         Assert.IsTrue(Item == null || Item == item);
 
@@ -30,7 +30,7 @@ public class InventorySlot
             Item = item;
         }
 
-        Quantity++;
+        Quantity += amount;
 
         if (OnInventorySlotChanged != null)
         {
@@ -44,12 +44,13 @@ public class InventorySlot
 
     public SlotIO GetSlotIO() { return SlotIO; }
 
-    public void DecreaseQuantity(int amount)
+    public void RemoveItem(int amount)
     {
         Quantity -= amount;
-        if (Quantity < 0)
+        if (Quantity <= 0)
         {
             Quantity = 0;
+            Item = null;
         }
 
         if (OnInventorySlotChanged != null)
@@ -63,9 +64,9 @@ public class InventoryComponent : MonoBehaviour, IInventory
 {
     [SerializeField] private List<InventorySlot> InventorySlots;
 
-    public void AddItem(int index, Item item)
+    public void AddItem(int index, Item item, int amount)
     {
-        InventorySlots[index].AddItem(item);
+        InventorySlots[index].AddItem(item, amount);
     }
 
     public InventorySlot GetSlot(int index)
@@ -83,9 +84,9 @@ public class InventoryComponent : MonoBehaviour, IInventory
         return InventorySlots[index].GetQuantity();
     }
 
-    public void DecreaseQuantity(int index, int amount)
+    public void RemoveItem(int index, int amount)
     {
-        InventorySlots[index].DecreaseQuantity(amount);
+        InventorySlots[index].RemoveItem(amount);
     }
 
     public int GetAvailableSlotIndex(Item item, SlotIO slotIO)

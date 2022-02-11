@@ -148,7 +148,7 @@ MonoBehaviour:
   ExclusionPlacementMask:
     serializedVersion: 2
     m_Bits: 384
-  OnClickedUI: {fileID: 0}
+  OnClickedUI: {fileID: 8748636724763064734, guid: 9fdc5da8f286c144c9742e39794c603f, type: 3}
 --- !u!114 &-3573728804084382102
 MonoBehaviour:
   m_ObjectHideFlags: 0

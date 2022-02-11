@@ -64,6 +64,12 @@ public class MachineComponent : MonoBehaviour
             {
                 progressBarUI.SetProgressBar(GetComponent<IProgressBar>());
             }
+
+            ActiveRecipeUI activeRecipeUI = m_OnClickedUI.GetComponentInChildren<ActiveRecipeUI>();
+            if (activeRecipeUI != null)
+            {
+                activeRecipeUI.InitFromCrafterComponent(GetComponent<CrafterComponent>());
+            }
         }
     }
 }
