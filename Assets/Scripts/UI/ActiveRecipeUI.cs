@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 public class ActiveRecipeUI : MonoBehaviour
 {
+    [SerializeField] private GameObject SelectRecipeUI;
+
     private CrafterComponent m_CrafterComponent;
     private Image m_Image;
 
@@ -25,6 +28,15 @@ public class ActiveRecipeUI : MonoBehaviour
 
         m_CrafterComponent.OnActiveRecipeChanged += OnActiveRecipeChanged;
         OnActiveRecipeChanged(m_CrafterComponent.GetActiveRepice());
+    }
+
+    public void OpenSelectRecipeUI()
+    {
+        GameObject gameObject = Instantiate(SelectRecipeUI, transform.parent.parent);
+        SelectRecipeUI selectRecipeUI = gameObject.GetComponentInChildren<SelectRecipeUI>();
+        Assert.IsNotNull(selectRecipeUI);
+        Assert.IsNotNull(m_CrafterComponent);
+        selectRecipeUI.InitFromCrafterComponent(m_CrafterComponent);
     }
 
     private void OnActiveRecipeChanged(Recipe recipe)

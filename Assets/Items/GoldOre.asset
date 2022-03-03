@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1479c554ba1b80c4e85b2faa4836db22, type: 3}
-  m_Name: FurnaceRecipeSet
+  m_Script: {fileID: 11500000, guid: f793bd2d45b8fb945b3574c9080f6a15, type: 3}
+  m_Name: GoldOre
   m_EditorClassIdentifier: 
-  Recipes:
-  - {fileID: 11400000, guid: 0a1915e7e6e506b479269967c91bad8f, type: 2}
-  - {fileID: 11400000, guid: 203e15bf665e5b7418cb767244bf3557, type: 2}
+  Name: Gold Ore
+  Icon: {fileID: 26401286, guid: 089eb60f6d6f4f34e895c7504b545f87, type: 3}
+  WorldItem: {fileID: 2633590891938433985, guid: 7b3eee9ca8b0f474bb6cfca02470eb46, type: 3}

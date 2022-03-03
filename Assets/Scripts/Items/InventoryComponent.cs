@@ -21,6 +21,8 @@ public class InventorySlot
     public delegate void InventorySlotChanged();
     public event InventorySlotChanged OnInventorySlotChanged;
 
+    private Item m_ItemFilter;
+
     public void AddItem(Item item, int amount)
     {
         Assert.IsTrue(Item == null || Item == item);
@@ -44,6 +46,8 @@ public class InventorySlot
 
     public SlotIO GetSlotIO() { return SlotIO; }
 
+    public Item GetItemFilter() { return m_ItemFilter; }
+
     public void RemoveItem(int amount)
     {
         Quantity -= amount;
@@ -57,6 +61,11 @@ public class InventorySlot
         {
             OnInventorySlotChanged();
         }
+    }
+
+    public void SetItemFilter(Item itemFilter)
+    {
+        m_ItemFilter = itemFilter;
     }
 }
 
@@ -108,9 +117,20 @@ public class InventoryComponent : MonoBehaviour, IInventory
                 continue;
             }
 
+            Item itemFilter = slot.GetItemFilter();
+            if (itemFilter != null && itemFilter != item)
+            {
+                continue;
+            }
+
             return i;
         }
 
         return -1;
+    }
+
+    public void SetItemFilter(int index, Item itemFilter)
+    {
+        InventorySlots[index].SetItemFilter(itemFilter);
     }
 }

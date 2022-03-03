@@ -51,18 +51,35 @@ public class CrafterComponent : MonoBehaviour, IProgressBar
 
     public void SetActiveRecipe(Recipe recipe)
     {
-        m_ActiveRecipe = RecipeSet.Recipes[0];
+        if (m_ActiveRecipe == recipe)
+        {
+            return;
+        }
+
+        if (m_ActiveRecipe != null)
+        {
+            for (int i = 0; i < m_ActiveRecipe.Inputs.Count; ++i)
+            {
+                m_InventoryComponent.SetItemFilter(i, null);
+            }
+        }
+
+        m_ActiveRecipe = recipe;
         m_InputSlots.Clear();
         m_OutputSlots.Clear();
 
-        foreach (Ingredient input in m_ActiveRecipe.Inputs)
+        if (m_ActiveRecipe != null)
         {
-            m_InputSlots.Add(-1);
-        }
+            for (int i = 0; i < m_ActiveRecipe.Inputs.Count; ++i)
+            {
+                m_InputSlots.Add(-1);
+                m_InventoryComponent.SetItemFilter(i, m_ActiveRecipe.Inputs[i].GetItem());
+            }
 
-        foreach (Ingredient output in m_ActiveRecipe.Outputs)
-        {
-            m_OutputSlots.Add(-1);
+            foreach (Ingredient output in m_ActiveRecipe.Outputs)
+            {
+                m_OutputSlots.Add(-1);
+            }
         }
 
         m_State = State.WaitingForInputs;
@@ -74,6 +91,8 @@ public class CrafterComponent : MonoBehaviour, IProgressBar
     }
 
     public Recipe GetActiveRepice() { return m_ActiveRecipe; }
+
+    public RecipeSet GetRecipeSet() { return RecipeSet; }
 
     public float GetProgressRatio()
     {
